@@ -1,0 +1,18 @@
+:root {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: #e8e8ea;
+  background: #121214;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input {
+  font: inherit;
+}

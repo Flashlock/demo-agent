@@ -1,0 +1,142 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Pantheon Demo Agent",
+    "version": "1.0.2",
+    "description": "Reference FastAPI agent for Project Pantheon Hub."
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "operationId": "health",
+        "tags": ["core"],
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "instanceId": { "type": "string" },
+                    "port": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/status": {
+      "get": {
+        "operationId": "status",
+        "tags": ["core"],
+        "summary": "Agent status snapshot",
+        "responses": {
+          "200": {
+            "description": "Status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "instanceId": { "type": "string" },
+                    "greeting": { "type": "string" },
+                    "tasksProcessed": { "type": "integer" },
+                    "queuePressure": { "type": "number" },
+                    "port": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/process-queue": {
+      "post": {
+        "operationId": "processQueue",
+        "tags": ["work"],
+        "summary": "Process demo work queue",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "forceRun": { "type": "boolean", "default": false }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Processed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "processed": { "type": "integer" },
+                    "queuePressure": { "type": "number" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/request-approval": {
+      "post": {
+        "operationId": "requestApproval",
+        "tags": ["hitl"],
+        "summary": "Raise a HITL breakpoint",
+        "description": "Creates a HITL breakpoint and returns immediately by default (`status: pending`). Open the instance App to resolve the queue. Set `waitForResolution: true` to block until the breakpoint is resolved or times out (up to 5 minutes).",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "waitForResolution": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "When true, the request blocks until HITL is resolved or times out."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Breakpoint raised (pending) or HITL resolved/timed out when waitForResolution is true",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "enum": ["pending", "resolved", "timeout"]
+                    },
+                    "breakpointId": { "type": "string" },
+                    "resolution": { "type": "object", "nullable": true }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

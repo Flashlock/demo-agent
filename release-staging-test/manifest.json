@@ -1,0 +1,91 @@
+{
+  "manifestSchemaVersion": 1,
+  "agentId": "io.pantheon.demo_agent",
+  "packageName": "Demo Agent",
+  "version": "1.0.3",
+  "minPantheonVersion": "0.1.0",
+  "description": "Reference Pantheon agent — FastAPI service, telemetry, HITL demo, and React MFE.",
+  "developer": {
+    "name": "Project Pantheon",
+    "supportUrl": "https://github.com/example/project-pantheon"
+  },
+  "branding": {
+    "iconRelativePath": "./assets/icon.svg",
+    "accentColorHex": "#00E676",
+    "secondaryColorHex": "#69F0AE",
+    "surfaceColorHex": "#0B1F14",
+    "instanceCardBackgroundColorHex": "#0D2818",
+    "onAccentColorHex": "#051008",
+    "mutedTextColorHex": "#81C784",
+    "gradient": {
+      "startColorHex": "#00E676",
+      "endColorHex": "#004D40",
+      "angleDeg": 135
+    }
+  },
+  "runtime": {
+    "binaryRelativePath": "./bin/demo-agent.exe",
+    "openApiRelativePath": "./docs/openapi.json",
+    "defaultResourceTier": "ECO",
+    "supportedPlatforms": [{ "os": "windows", "arch": "x86_64" }]
+  },
+  "mfeDirectory": "./dist_mfe",
+  "features": {
+    "hitl": true
+  },
+  "instanceConfigSchema": {
+    "fields": [
+      {
+        "id": "DEMO_GREETING",
+        "label": "Greeting prefix",
+        "type": "STRING",
+        "required": false
+      }
+    ]
+  },
+  "capabilities": [
+    {
+      "intent": "network.outbound",
+      "params": { "domains": ["127.0.0.1"] },
+      "justification": "Submit telemetry and HITL calls to the local Hub Core API."
+    },
+    {
+      "intent": "network.bind",
+      "params": { "ports": [] },
+      "justification": "Expose the agent HTTP service on the Hub-assigned port."
+    }
+  ],
+  "recommendedAutomation": [
+    {
+      "name": "Process queue every 10 minutes",
+      "cronExpression": "0 */10 * * * *",
+      "targetEndpoint": "/api/v1/process-queue",
+      "payloadTemplate": "{\"forceRun\": false}"
+    }
+  ],
+  "customTelemetrySchema": {
+    "visualGrid": [
+      {
+        "metricKey": "tasks_processed_total",
+        "label": "Tasks Processed",
+        "type": "COUNTER",
+        "format": "INT",
+        "gridSpan": 6
+      },
+      {
+        "metricKey": "queue_pressure",
+        "label": "Queue Pressure",
+        "type": "GAUGE",
+        "format": "PERCENTAGE",
+        "gridSpan": 6
+      },
+      {
+        "metricKey": "throughput_spark",
+        "label": "Throughput (24h)",
+        "type": "SPARKLINE",
+        "format": "FLOAT",
+        "gridSpan": 12
+      }
+    ]
+  }
+}
