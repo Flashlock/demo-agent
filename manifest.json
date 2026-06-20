@@ -5,6 +5,7 @@
   "version": "1.0.3",
   "minPantheonVersion": "0.1.0",
   "description": "Reference Pantheon agent — FastAPI service, telemetry, HITL demo, and React MFE.",
+  "details": "./Details.md",
   "author": "Pantheon Labs",
   "developer": {
     "name": "Project Pantheon",
