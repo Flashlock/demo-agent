@@ -2,7 +2,7 @@
   "manifestSchemaVersion": 1,
   "agentId": "io.pantheon.demo_agent",
   "packageName": "Demo Agent",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "minPantheonVersion": "0.1.0",
   "description": "Reference Pantheon agent — FastAPI service, telemetry, HITL demo, and React MFE.",
   "details": "./Details.md",
