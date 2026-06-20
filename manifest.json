@@ -5,9 +5,38 @@
   "version": "1.0.3",
   "minPantheonVersion": "0.1.0",
   "description": "Reference Pantheon agent — FastAPI service, telemetry, HITL demo, and React MFE.",
+  "author": "Pantheon Labs",
   "developer": {
     "name": "Project Pantheon",
     "supportUrl": "https://github.com/example/project-pantheon"
+  },
+  "billing": {
+    "base": {
+      "model": "subscription",
+      "amountCents": 1000,
+      "currency": "usd",
+      "interval": "month"
+    },
+    "usage": [
+      {
+        "key": "report.generated",
+        "unitLabel": "report",
+        "unitPriceCents": 10,
+        "description": "Each completed report exported from the agent."
+      },
+      {
+        "key": "query.executed",
+        "unitLabel": "query",
+        "unitPriceCents": 1,
+        "description": "Each API query or search request processed."
+      },
+      {
+        "key": "video.minute",
+        "unitLabel": "minute",
+        "unitPriceCents": 50,
+        "description": "Each minute of generated or processed video output."
+      }
+    ]
   },
   "branding": {
     "iconRelativePath": "./assets/icon.svg",
